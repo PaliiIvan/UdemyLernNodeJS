@@ -4,8 +4,8 @@ import express from 'express';
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
-    console.log('In the midd');
-    res.sendFile(path.join(__dirname, '../', 'views','shop.html'));
+    //res.sendFile(path.join(__dirname, '../', 'views','shop.html'));
+    res.render('shop');
 });
 
 export = router;
