@@ -1,0 +1,13 @@
+   <main>
+       {{#if hasProducts}}
+       {{#each prods}}
+        <div class="grid">
+            {{this.title}}
+        </div>
+       {{/each}}
+       {{else}}
+       <h1>No Products</h1>
+       {{/if}}
+
+    </main>
+
