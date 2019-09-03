@@ -5,7 +5,7 @@ const router = express.Router();
 const products: any[] = [];
 
 router.get('/add-product', (req, res, next) => {
-    res.render('handlebars-views/add-product', {pageTitle: 'Add Product', path: 'admin/add-product', formsCss: true, productCss: true, activeAddProduct: true});
+    res.render('ejs-views/add-product', {pageTitle: 'Add Product', path: 'admin/add-product', formsCss: true, productCss: true, activeAddProduct: true});
  });
  
  router.post('/add-product', (req, res, next) => {
