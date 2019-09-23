@@ -1,1 +1,16 @@
-[{"title":"FirstRequest","imageUrl":"https://ismbook.com/wp-content/uploads/2018/12/best-philosophy-books.jpg","description":"Book","price":"123.3"}]
+[
+    {
+        "title": "FirstRequest",
+        "imageUrl": "https://ismbook.com/wp-content/uploads/2018/12/best-philosophy-books.jpg",
+        "description": "fdsf",
+        "price": 34324,
+        "id": 0.2964337558187682
+    },
+    {
+        "title": "Third Request",
+        "imageUrl": "https://ismbook.com/wp-content/uploads/2018/12/best-philosophy-books.jpg",
+        "description": "gfdg",
+        "price": 45,
+        "id": 0.19063999074332605
+    }
+]

@@ -1,7 +1,35 @@
 <%- include('../includes/head.ejs') %>
 
 </head>
+<link rel="stylesheet" href="/css/product.css">
 
 <body>
     <%- include('../includes/navigation.ejs') %>
-    <%- include('../includes/end.ejs') %>
+
+    <div>
+        <div style="text-align: center"><h3 class="product__title"> Price: <%= cart.totalPrice %></h3></div>
+        <div class="grid">
+            <% for (let product of cart.products) { %>
+            <article class="card product-item">
+                <header class="card__header">
+                    <h1 class="product__title"><%= product.product.title %> [<span style="color: orange"><%= product.count %></span>]</h1>
+                </header>
+                <div class="card__image">
+                    <img src="<%=product.product.imageUrl%>" alt="<%= product.product.title %>">
+                </div>
+                <div class="card__content">
+                    <h2 class="product__price">$<%= product.product.price %></h2>
+                    <p class="product__description"><%= product.product.description %></p>
+                </div>
+                <div class="card__actions">
+                    <form action="/delete-cart" method="POST">
+                        <input type="hidden" value="<%= product.product.id %>" name="productId">
+                        <input type="hidden" value="<%= cart.id %>" name="cartId">
+                        <button type="submit" class="btn">Remove from Cart</button>
+                    </form>
+                </div>
+            </article>
+            <% } %>
+        </div>
+
+        <%- include('../includes/end.ejs') %>
