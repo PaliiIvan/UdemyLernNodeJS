@@ -9,6 +9,8 @@ import ErrorController from './controllers/error.controller';
 
 import { sequelize } from "../src/util/database";
 import { Product } from './models/product';
+import { User } from './models/user';
+
 const app = express();
 
 
@@ -23,14 +25,12 @@ app.use(shopRoutes);
 
 app.use(ErrorController.Error404);
 
+app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
+    User.findByPk(1)
+    .then(user => {
+    })
+});
+
 const server = http.createServer(app);
 
-
-Product.sync().then( (res: any) => {
-    console.log(res);
-    console.log(res.models);
-    console.log(res.modelManager);
-}).catch((err: any) => {
-    console.log(err);
-})
 server.listen(3000);

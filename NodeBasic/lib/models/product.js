@@ -1,65 +1,51 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var fs_1 = __importDefault(require("fs"));
-var path_1 = __importDefault(require("path"));
-var products = [];
-var p = path_1.default.join(path_1.default.dirname(process.mainModule.filename), 'data', 'products.json');
-var Product = /** @class */ (function () {
-    function Product(title, imageUrl, description, price) {
-        this.title = title;
-        this.imageUrl = imageUrl;
-        this.description = description;
-        this.price = price;
-        this.id = 0;
-    }
-    Product.prototype.save = function () {
-        this.id = Math.random();
-        fs_1.default.readFile(p, function (err, fileContent) {
-            var products = [];
-            if (!err) {
-                products = JSON.parse(fileContent.toString());
-            }
-        });
-        products.push(this);
-        fs_1.default.writeFile(p, JSON.stringify(products), function (err) { console.log(err); });
-    };
-    Product.fetchAll = function (cb) {
-        this.getProductsFromFile(cb);
-    };
-    Product.getProductsFromFile = function (cb) {
-        fs_1.default.readFile(p, function (err, fileContent) {
-            if (err) {
-                cb([]);
-            }
-            cb(JSON.parse(fileContent.toString()));
-        });
-    };
-    Product.findById = function (id, cb) {
-        this.getProductsFromFile(function (products) {
-            var product = products.find(function (prod) { return prod.id === id; });
-            cb(product);
-        });
-    };
-    Product.editProduct = function (product) {
-        this.findById(product.id, function (productForEdit) {
-            productForEdit = product;
-            product.save();
-        });
-    };
-    Product.saveAllProducts = function (productsToSave) {
-        fs_1.default.writeFile(p, JSON.stringify(productsToSave), function (err) { console.log(err); });
-    };
-    Product.deleteProduct = function (id) {
-        var _this = this;
-        Product.fetchAll(function (products) {
-            var filteredProducts = products.filter(function (x) { return x.id !== id; });
-            _this.saveAllProducts(filteredProducts);
-        });
-    };
-    return Product;
-}());
+const sequelize_1 = require("sequelize");
+const database_1 = require("../util/database");
+const user_1 = require("./user");
+class Product extends sequelize_1.Model {
+}
 exports.Product = Product;
+Product.init({
+    id: {
+        type: sequelize_1.DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+        allowNull: true
+    },
+    title: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: false
+    },
+    price: {
+        type: sequelize_1.DataTypes.DOUBLE,
+        allowNull: false
+    },
+    description: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: false
+    },
+    imageUrl: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: false
+    }
+}, {
+    sequelize: database_1.sequelize,
+    tableName: 'products'
+});
+Product.belongsTo(user_1.User, { constraints: true, onDelete: 'CASCADE' });
+user_1.User.hasMany(Product);
+Product
+    .sync()
+    .then(res => {
+    return user_1.User.findByPk(1);
+})
+    .then(user => {
+    console.log("Product Table inited");
+    if (!user) {
+        user_1.User.create({ name: 'Ivan', email: 'test@test.com' });
+    }
+    return user;
+})
+    .catch(err => console.log(err, "Error"));
 //# sourceMappingURL=product.js.map
