@@ -1,18 +1,31 @@
-const Sequelize = require('sequelize');
+const CartItem = require('./cart-item');
 
-const sequelize = require('../util/database');
+class Cart {
 
-class Cart extends Sequelize.Model {
-  id = this.dataValues.id;
-}
 
-Cart.init({
-  id: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
-    allowNull: false,
-    primaryKey: true
+  /**
+   * 
+   * @param { CartItem[]} CartItems 
+   */
+  constructor(CartItems) {
+    this.cartItems = CartItems;
   }
-}, {sequelize: sequelize, modelName: 'cart'});
+
+/**
+ * @returns {Promise}
+ */
+  save() {
+
+  }
+
+  /**
+   * 
+   * @param { number } cartId
+   * @returns {Promise<Cart>}  
+   */
+  static fetchById(cartId) {
+
+  }
+}
 
 module.exports = Cart;

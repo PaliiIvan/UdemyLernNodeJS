@@ -1,19 +1,17 @@
-const Sequelize = require('sequelize');
+const { ObjectID } = require('mongodb');
 
-const sequelize = require('../util/database');
+class CartItem {
 
-class CartItem extends Sequelize.Model {
-  id = this.dataValues.id;
+
+  /**
+   * 
+   * @param {number} id 
+   * @param {number} quantity 
+   */
+  constructor(id, quantity) {
+    this.productId = new ObjectID(id);
+    this.quantity = quantity;
+  }
 }
-
-CartItem.init({
-  id: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
-    allowNull: false,
-    primaryKey: true
-  },
-  quantity: Sequelize.INTEGER
-}, {sequelize: sequelize, modelName: 'cartItem'});
 
 module.exports = CartItem;
