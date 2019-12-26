@@ -1,3 +1,3 @@
-import { dirname } from 'path';
+const path = require('path');
 
-export default dirname(process.mainModule.filename);
+module.exports = path.dirname(process.mainModule.filename);
