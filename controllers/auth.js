@@ -7,5 +7,6 @@ exports.getLogin = (req, res, next) => {
 
 
 exports.postLogin = (req, res, next) => {
+  console.log("test pull request");
   res.redirect('/');
 }
