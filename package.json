@@ -1,7 +1,7 @@
 {
-  "name": "nodejs-complete-guide",
+  "name": "nodejs-udemy-lessons",
   "version": "1.0.0",
-  "description": "Complete Node.js Guide",
+  "description": "Udemy NodeJs",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,6 +15,8 @@
   },
   "dependencies": {
     "body-parser": "^1.18.3",
+    "connect-mongodb-session": "^2.2.0",
+    "cookie-parser": "^1.4.4",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
