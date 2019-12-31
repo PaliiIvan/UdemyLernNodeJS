@@ -21,4 +21,4 @@ AssociatedPartyMapping_Test                                                     
 TestCoverSummaryBaseMapper                                                                              ---------+----------------
 HydratePartyViewModel_TransactionIsChangeFromInceptionTransaction_ReturnsValidPartyViewModel            -------+------------------
 ListCoverSummaries_ShouldReturnCoverSummaries                                                           -----+--------------------
-const MONGODB_URL = 'mongodb+srv://test_user1:test_user2@cluster0-aonj5.azure.mongodb.net/node_lessons';
+const MONGODB_URI = 'mongodb+srv://test_user1:test_user2@cluster0-aonj5.azure.mongodb.net/node_lessons';
