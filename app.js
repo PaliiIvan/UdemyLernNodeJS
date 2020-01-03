@@ -1,5 +1,5 @@
 const path = require('path');
-
+const env = require('./environment.json');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -11,7 +11,7 @@ const flash = require('connect-flash');
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
-const MONGODB_URI = 'mongodb+srv://test_user1:test_user2@cluster0-aonj5.azure.mongodb.net/node_lessons';
+const MONGODB_URI = env.mongoDb_token;
 
 const app = express();
 const store = new MongoDBStore({
