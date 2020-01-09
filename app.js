@@ -1,5 +1,5 @@
 const path = require('path');
-const env = require('./environment.json');
+const env = require('./environment');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -11,7 +11,7 @@ const flash = require('connect-flash');
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
-const MONGODB_URI = env.mongoDb_token;
+const MONGODB_URI = env.tokens.mongoDb_token;
 
 const app = express();
 const store = new MongoDBStore({
