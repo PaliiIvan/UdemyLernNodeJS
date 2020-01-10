@@ -15,31 +15,56 @@ exports.getAddProduct = (req, res, next) => {
   });
 };
 
+/**
+ * @param {Express.Request} req 
+ * @param {Express.Multer.File} res 
+ * @param {NextFunction} next 
+ */
 exports.postAddProduct = (req, res, next) => {
+console.log(req.file);
   const title = req.body.title;
-  const imageUrl = req.body.image;
+  const image = req.file;
   const price = req.body.price;
   const description = req.body.description;
   const errors = validationResult(req);
 
+  if (!image) {
+    return res.status(422)
+      .render('admin/edit-product', {
+        pageTitle: 'Add Product',
+        path: '/admin/add-product',
+        editing: false,
+        hasError: true,
+        product: {
+          title: title,
+          price: price,
+          description: description
+        },
+        errorMessage: 'Attached file is not an image',
+        validationErrors: []
+      });
+  }
   if (!errors.isEmpty()) {
     console.log(errors.array());
-    return res.status(422).render('admin/edit-product', {
-      pageTitle: 'Add Product',
-      path: '/admin/add-product',
-      editing: false,
-      hasError: true,
-      product: {
-        title: title,
-        imageUrl: imageUrl,
-        price: price,
-        description: description
-      },
-      errorMessage: errors.array()[0].msg,
-      validationErrors: errors.array()
-    });
+    return res.status(422)
+      .render('admin/edit-product', {
+        pageTitle: 'Add Product',
+        path: '/admin/add-product',
+        editing: false,
+        hasError: true,
+        product: {
+          title: title,
+          imageUrl: imageUrl,
+          price: price,
+          description: description
+        },
+        errorMessage: errors.array()[0].msg,
+        validationErrors: errors.array()
+      });
   }
 
+  const imageUrl = image.path;
+  
   const product = new Product({
     // _id: new mongoose.Types.ObjectId('5badf72403fd8b5be0366e81'),
     title: title,
@@ -72,7 +97,7 @@ exports.postAddProduct = (req, res, next) => {
       // });
       // res.redirect('/500');
       console.log(err);
-      
+
       const error = new Error(err);
       error.httpStatusCode = 500;
       return next(error);
