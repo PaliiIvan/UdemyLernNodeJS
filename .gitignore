@@ -3,6 +3,7 @@
 # dependencies
 /ReactClient/node_modules
 /NodeJs/node_modules
+/NodeJs/images/*
 # testing
 /coverage
 
