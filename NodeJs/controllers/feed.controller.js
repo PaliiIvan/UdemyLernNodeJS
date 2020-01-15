@@ -11,7 +11,7 @@ exports.getPosts =  function (req, res, next) {
             _id: '1',
             title: 'First Post',
             content: 'The first post',
-            imageUrl: 'images/68896164_p0.jpg',
+            imageUrl: 'images/75229077_p0.jpg',
             creator: {
                 name: 'My Name'
             },
