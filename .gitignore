@@ -4,6 +4,7 @@
 /ReactClient/node_modules
 /NodeJs/node_modules
 /NodeJs/images
+environment.js
 # testing
 /coverage
 
