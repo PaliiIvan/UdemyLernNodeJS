@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const multer = require('multer');
 
 const feedRoutes = require('./routes/feed');
-
+const authRoutes = require('./routes/auth');
 const app = express();
 
 const fileStorage = multer.diskStorage({
@@ -48,6 +48,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/feed', feedRoutes);
+app.use('/auth', authRoutes);
 
 app.use((error, req, res, next) => {
   console.log(error);
