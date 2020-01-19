@@ -1,5 +1,5 @@
 const path = require('path');
-const environment = require('../environment')
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -7,6 +7,7 @@ const multer = require('multer');
 
 const feedRoutes = require('./routes/feed');
 const authRoutes = require('./routes/auth');
+
 const app = express();
 
 const fileStorage = multer.diskStorage({
@@ -54,14 +55,19 @@ app.use((error, req, res, next) => {
   console.log(error);
   const status = error.statusCode || 500;
   const message = error.message;
-  res.status(status).json({ message: message });
+  const data = error.data;
+  res.status(status).json({ message: message, data: data });
 });
 
 mongoose
   .connect(
-    environment.Tokens.MONGODB_URI
+    'mongodb+srv://maximilian:9u4biljMQc4jjqbe@cluster0-ntrwp.mongodb.net/messages?retryWrites=true'
   )
   .then(result => {
-    app.listen(8080);
+    const server = app.listen(8080);
+    const io = require('./socket').init(server);
+    io.on('connection', socket => {
+      console.log('Client connected');
+    });
   })
   .catch(err => console.log(err));
